@@ -37,6 +37,10 @@ jobs:
       - name: Build
         run: dotnet build *.slnx --configuration Release --no-restore
 
+      - name: Show MSBuild VersionPrefix
+        run: |
+          dotnet msbuild Test.Core.csproj -getProperty:VersionPrefix
+
       - name: Test
         run: dotnet test *.slnx --configuration Release --no-build --verbosity normal
 
