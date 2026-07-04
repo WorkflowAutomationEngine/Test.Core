@@ -7,5 +7,7 @@
         public string LastName { get; set; }
 
         public string ToString();
+
+        public string GetEmployeeId();
     }
 }

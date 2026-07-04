@@ -19,5 +19,9 @@ namespace Test.Core.Models
             return $"{FirstName} {LastName}";
         }
 
+        public string GetEmployeeId()
+        {
+            return Id.ToString();
+        }
     }
 }
