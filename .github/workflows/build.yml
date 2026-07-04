@@ -1,18 +1,26 @@
-name: Build
+name: CI
 
 on:
   pull_request:
     branches:
       - main
 
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
 jobs:
   build:
-    name: Build Test.Core
+    name: Build
 
     runs-on: ubuntu-latest
 
-    steps:
+    timeout-minutes: 15
 
+    steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
