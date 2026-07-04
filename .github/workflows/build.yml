@@ -33,3 +33,17 @@ jobs:
 
       - name: Test
         run: dotnet test *.slnx --configuration Release --no-build --verbosity normal
+
+      - name: Pack
+        run: |
+            dotnet pack Test.Core.csproj \
+              --configuration Release \
+              --no-build \
+              -p:PackageVersion=1.0.0.0 \
+              --output ./artifacts
+
+      - name: Upload Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test.Core.Package
+          path: ./artifacts/*.nupkg
