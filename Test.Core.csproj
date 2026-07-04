@@ -10,4 +10,8 @@
     <None Include=".github\workflows\build.yml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NuGet\" />
+  </ItemGroup>
+
 </Project>
