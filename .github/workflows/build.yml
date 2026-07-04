@@ -20,6 +20,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Show repository structure
+        run: |
+          pwd
+          ls -la
+          ls -la NuGet
+
       - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
         with:
