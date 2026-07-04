@@ -1,0 +1,31 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Test.Core
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore Test.Core.slnx
+
+      - name: Build
+        run: dotnet build Test.Core.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test Test.Core.slnx --configuration Release --no-build --verbosity normal
