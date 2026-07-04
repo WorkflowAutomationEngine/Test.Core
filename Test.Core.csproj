@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="Nuget/build.props" />
+  <Import Project="NuGet/build.props"
+          Condition="Exists('NuGet/build.props')" />
   
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
