@@ -7,6 +7,9 @@ using Test.Core.Services;
 BuildPropertiesReader reader = new BuildPropertiesReader();
 
 //var path = $"{AppContext.BaseDirectory}\\..\\NuGet\\build.props";
+Console.WriteLine($"Current Directory: {Environment.CurrentDirectory}");
+Console.WriteLine($"Looking for: {Path.GetFullPath(@"..\..\..\..\NuGet\build.props")}");
+
 var buildProperties = reader.Read(@"..\..\..\..\NuGet\build.props");
 
 PackageFeedOptions options = PackageFeedOptionsFactory.Create(ConfigurationProvider.Build());
