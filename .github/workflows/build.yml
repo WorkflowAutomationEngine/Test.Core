@@ -61,7 +61,6 @@ jobs:
         run: |
             dotnet pack Test.Core/Test.Core.csproj \
             --configuration Release \
-            # --no-build \
             --output ./artifacts \
             -p:Version=$VERSION
 
