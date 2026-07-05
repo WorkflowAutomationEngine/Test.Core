@@ -1,11 +1,11 @@
-﻿using NuGet.Versioning;
-using Test.Core.Models;
-using NuGet.Common;
+﻿using NuGet.Common;
 using NuGet.Configuration;
 using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
+using NuGet.Versioning;
+using Test.Core.Models;
 
-namespace Test.Core.NuGet.Services
+namespace Test.Core.Services
 {
     public sealed class PackageVersionSource : IPackageVersionSource
     {

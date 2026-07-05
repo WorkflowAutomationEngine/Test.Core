@@ -1,6 +1,6 @@
 ﻿using NuGet.Versioning;
 
-namespace Test.Core.NuGet.Services
+namespace Test.Core.Services
 {
     public sealed class PackageVersionService
     {
