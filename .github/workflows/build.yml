@@ -46,7 +46,7 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          VERSION=$(workflowautomationengine)
+          VERSION=$(dotnet tool run workflowautomationengine)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Restore
