@@ -21,16 +21,33 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # - name: Show repository structure
-      #   run: |
-      #     pwd
-      #     ls -la
-      #     ls -la NuGet
-
       - name: Setup .NET 10
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
+
+      - name: Add GitHub Packages Source
+        run: |
+          dotnet nuget add source "https://nuget.pkg.github.com/WorkflowAutomationEngine/index.json" \
+            --name github \
+            --username ${{ github.actor }} \
+            --password ${{ secrets.GITHUB_TOKEN }} \
+            --store-password-in-clear-text
+
+      - name: Install WorkflowAutomationEngine Tool
+        run: |
+          dotnet tool install WorkflowAutomationEngine.Core.CLI \
+            --version 1.0.0.4 \
+            --add-source "https://nuget.pkg.github.com/WorkflowAutomationEngine/index.json" \
+            --ignore-failed-sources
+
+      - name: Calculate Package Version
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(workflowautomationengine)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Restore
         run: dotnet restore *.slnx
@@ -38,52 +55,23 @@ jobs:
       - name: Build
         run: dotnet build *.slnx --configuration Release --no-restore
 
-      # - name: Show MSBuild VersionPrefix
-      #   run: |
-      #     dotnet msbuild Test.Core.csproj -getProperty:VersionPrefix
-
       - name: Test
         run: dotnet test *.slnx --configuration Release --no-build --verbosity normal
 
-      - name: Calculate Package Version
-        id: version
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          VERSION=$(dotnet run --project Test.Core.CLI/Test.Core.CLI.csproj --configuration Release)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Calculated Version: $VERSION"
-
-      - name: Show Version Properties
-        run: |
-            dotnet msbuild Test.Core/Test.Core.csproj -getProperty:VersionPrefix
-            dotnet msbuild Test.Core/Test.Core.csproj -getProperty:Version
-
       - name: Pack
         run: |
-            dotnet pack Test.Core/Test.Core.csproj \
+          dotnet pack Test.Core/Test.Core.csproj \
             --configuration Release \
+            --no-build \
+            --no-restore \
             --output ./artifacts \
-            -p:Version=$VERSION
+            -p:Version=${{ env.VERSION }}
 
       - name: Upload Package
         uses: actions/upload-artifact@v4
         with:
           name: Test.Core.Package
           path: ./artifacts/*.nupkg
-
-      - name: Configure GitHub Packages
-        run: |
-  
-          dotnet nuget remove source github || true
-
-          dotnet nuget add source \
-            --username "${{ github.actor }}" \
-            --password "${{ secrets.GITHUB_TOKEN }}" \
-            --store-password-in-clear-text \
-            --name github \
-            "https://nuget.pkg.github.com/WorkflowAutomationEngine/index.json"
 
       - name: Push Package
         run: |
