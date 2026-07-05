@@ -14,6 +14,14 @@ namespace Test.Core.Models
             FirstName = string.Empty;
             LastName = string.Empty;
         }
+
+        public Employee(Guid id, string firstName, string lastName)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+        }
+
         public override string ToString()
         {
             return $"{FirstName} {LastName}";
