@@ -5,12 +5,22 @@ using Test.Core.Services;
 
 
 BuildPropertiesReader reader = new BuildPropertiesReader();
+BuildProperties buildProperties = null;
 
-//var path = $"{AppContext.BaseDirectory}\\..\\NuGet\\build.props";
-Console.WriteLine($"Current Directory: {Environment.CurrentDirectory}");
-Console.WriteLine($"Looking for: {Path.GetFullPath(@"..\..\..\..\NuGet\build.props")}");
+DirectoryInfo? directory = new(Environment.CurrentDirectory);
 
-var buildProperties = reader.Read(@"..\..\..\..\NuGet\build.props");
+while (directory != null)
+{
+    string candidate = Path.Combine(directory.FullName, "NuGet", "build.props");
+
+    if (File.Exists(candidate))
+    {
+        buildProperties = reader.Read(candidate);
+        break;
+    }
+
+    directory = directory.Parent;
+}
 
 PackageFeedOptions options = PackageFeedOptionsFactory.Create(ConfigurationProvider.Build());
 
