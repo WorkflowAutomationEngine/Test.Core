@@ -58,6 +58,7 @@ jobs:
             --configuration Release \
             --no-build \
             --output ./artifacts
+            -p:Version=$VERSION
 
       - name: Upload Package
         uses: actions/upload-artifact@v4
