@@ -48,7 +48,7 @@ jobs:
       - name: Calculate Package Version
         id: version
         run: |
-          VERSION=$(dotnet run --project Test.Core/Test.Core.CLI --configuration Release)
+          VERSION=$(dotnet run --project Test.Core.CLI/Test.Core.CLI.csproj --configuration Release)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Calculated Version: $VERSION"
 

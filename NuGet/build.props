@@ -6,7 +6,7 @@
     <PackageId>Test.Core</PackageId>
 
     <!-- Base Version -->
-    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionPrefix>1.0.0</VersionPrefix>
 
     <!-- Metadata -->
     <Authors>WorkflowAutomationEngine</Authors>
