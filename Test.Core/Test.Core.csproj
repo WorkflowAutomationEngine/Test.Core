@@ -7,9 +7,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <None Include=".github\workflows\build.yml" />
+    <Compile Remove=".github\**" />
+    <EmbeddedResource Remove=".github\**" />
+    <None Remove=".github\**" />
   </ItemGroup>
 
   <ItemGroup>

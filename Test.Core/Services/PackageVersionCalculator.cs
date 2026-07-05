@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Test.Core.NuGet.Services
+namespace Test.Core.Services
 {
     public sealed class PackageVersionCalculator : IPackageVersionCalculator
     {

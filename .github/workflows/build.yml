@@ -45,9 +45,16 @@ jobs:
       - name: Test
         run: dotnet test *.slnx --configuration Release --no-build --verbosity normal
 
+      - name: Calculate Package Version
+        id: version
+        run: |
+          VERSION=$(dotnet run --project Test.Core/Test.Core.CLI --configuration Release)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Calculated Version: $VERSION"
+
       - name: Pack
         run: |
-            dotnet pack Test.Core.csproj \
+            dotnet pack Test.Core/Test.Core.csproj \
             --configuration Release \
             --no-build \
             --output ./artifacts
