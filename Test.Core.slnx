@@ -2,6 +2,7 @@
   <Folder Name="/Solution Items/">
     <File Path=".github/workflows/build.yml" />
     <File Path="NuGet/build.props" />
+    <File Path="Read.txt" />
   </Folder>
   <Project Path="Test.Core.CLI/Test.Core.CLI.csproj" Id="5a929433-1439-450b-8c95-c87135d519a6" />
   <Project Path="Test.Core.Tests/Test.Core.Tests.csproj" Id="01f8dd19-8b5b-4102-bfc0-1f7823e54817" />

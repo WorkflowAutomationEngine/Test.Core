@@ -11,9 +11,17 @@ namespace Test.Core.Configuration
                 configuration.GetSection("PackageFeed")
                              .Get<PackageFeedOptions>();
 
-            return options
-                ?? throw new InvalidOperationException(
-                    "PackageFeed configuration section is missing.");
+            string? githubActor = Environment.GetEnvironmentVariable("GITHUB_ACTOR");
+            string? githubToken = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
+
+            return new PackageFeedOptions
+            {
+                FeedUrl = options!.FeedUrl,
+                Username = Environment.GetEnvironmentVariable("GITHUB_ACTOR")
+               ?? options.Username,
+                Token = Environment.GetEnvironmentVariable("GITHUB_TOKEN")
+            ?? options.Token
+            };
         }
     }
 }
